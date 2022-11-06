@@ -1,5 +1,6 @@
 export const config = {
     "prefix" : "!",
+    "mode" : "self",
     "owner" : [
         "6282186587597@s.whatsapp.net"
     ],

@@ -10,6 +10,7 @@ export default async function chatHandler(m, sock) {
 	const prefix = config.prefix;
 	const owner = config.owner;
 	const premium = config.premium;
+	const mode = config.mode;
 
 	const multiPref = new RegExp(
 		"^[" + "!#".replace(/[|\\{}()[\]^$+*?.\-\^]/g, "\\$&") + "]"
@@ -46,6 +47,11 @@ export default async function chatHandler(m, sock) {
 		const isEval = body.startsWith("=>");
 		const isExec = body.startsWith("$");
 
+		// Mode
+		if (mode == "self") {
+			if (!isOwner)
+				return
+		}
 		// Log
 		const name = pushName === undefined ? sender.split("@")[0] : pushName;
 		if (isCmd && isGroup) {
