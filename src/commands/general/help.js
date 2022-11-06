@@ -53,7 +53,7 @@ export default {
 					.map((cmd, idx) => `├ ${idx + 1}. ${prefix + cmd.name}`)
 					.join("\n")}\`\`\`\n╰──────────────\n`;
 			}
-			str += `send *${prefix}help* followed by a command name to get detail of command, e.g. \n*${prefix}help* sticker`;
+			str += `send *${prefix}help* followed by a command name to get detail of command, e.g. \n*${prefix}help* stable`;
 			await sock.sendMessage(msg.from, { text: str }, { quoted: msg });
 		}
 	},

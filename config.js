@@ -7,5 +7,9 @@ export const config = {
 
     ],
     "botname" : "rose",
-    "footer": "@roses_are_rosie"
+    "footer": "@roses_are_rosie",
+    "sticker": {
+        "packname": "@roses_are_rosie",
+        "author": "rose"
+    }
 }

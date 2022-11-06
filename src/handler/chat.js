@@ -3,6 +3,8 @@ import serialize from "../helper/serialize.js";
 import { Collection as djs } from "../helper/collection.js";
 import { config } from "../../config.js";
 import { printLog } from "../utils/printLog.js";
+import * as execS from "child_process";
+import util from "util";
 
 export default async function chatHandler(m, sock) {
 	const prefix = config.prefix;
@@ -27,29 +29,77 @@ export default async function chatHandler(m, sock) {
 			return;
 
 		let { body } = msg;
-		const { isGroup, sender, from } = msg;
+		const { pushName, isGroup, sender, from } = msg;
 		const gcMeta = isGroup ? await sock.groupMetadata(from) : "";
 		const gcName = isGroup ? gcMeta.subject : "";
 		const isOwner = owner.includes(sender) || msg.isSelf;
 		const isPremium = premium.includes(sender);
 
 		let tempPref = multiPref.test(body) ? body.split("").shift() : "!";
-		if (body === "prefix" || body === "prefix?") {
-			msg.reply(`Bot Prefix is \n **${prefix}**`);
-		}
-		if (body) {
-			body = body.startsWith(tempPref) ? body : "";
-		} else {
-			body = "";
+		if (body.toLowerCase() === "prefix" || body === "prefix?") {
+			msg.reply(`Bot Prefix is *${prefix}*`);
 		}
 
 		const arg = body.substring(body.indexOf(" ") + 1);
 		const args = body.trim().split(/ +/).slice(1);
 		const isCmd = body.startsWith(tempPref);
-		const text = body.substring(body.indexOf(" ") + 1);
+		const isEval = body.startsWith("=>");
+		const isExec = body.startsWith("$");
 
 		// Log
-		printLog(isCmd, sender, gcName, isGroup);
+		const name = pushName === undefined ? sender.split("@")[0] : pushName;
+		if (isCmd && isGroup) {
+			console.log(
+				color("[COMMAND]", "aqua"),
+				color(name + " - " + sender.split("@")[0], "lime"),
+				"in",
+				color("Group: " + gcName, "lime")
+			);
+		}
+		if (isCmd && !isGroup) {
+			console.log(
+				color("[COMMAND]", "aqua"),
+				color(name + " - " + sender.split("@")[0], "lime")
+			);
+		}
+		// Evaluated
+		if (isEval) {
+			if (isOwner) {
+				console.log(
+					color("[EVALUATE]", "aqua"),
+					color(name, "lime")
+				);
+				let evaled,
+					text = arg,
+					{ inspect } = util;
+				try {
+					if (text.endsWith("--sync")) {
+						evaled = await eval(
+							`(async () => { ${text.trim.replace("--sync", "")} })`
+						);
+						msg.reply(evaled);
+					}
+					evaled = await eval(text);
+					if (typeof evaled !== "string") evaled = inspect(evaled);
+					await sock.sendMessage(msg.from, { text: evaled }, { quoted: msg });
+				} catch (e) {
+					sock.sendMessage(msg.from, { text: String(e) }, { quoted: msg });
+				}
+			}
+		}
+
+		if (isExec) {
+			if (isOwner) {
+				console.log(
+					color("[EXEC]", "aqua"),
+					color(name, "lime")
+				);
+				execS.exec(arg, async (err, stdout) => {
+					if (err) msg.reply(err);
+					if (stdout) msg.reply(stdout);
+				});
+			}
+		}
 
 		const cmdName = body
 			.slice(tempPref.length)
@@ -74,7 +124,7 @@ export default async function chatHandler(m, sock) {
 					}
 				}
 			}
-			cmd.exec({ sock, msg, args, arg, isOwner, text, isPremium });
+			cmd.exec({ sock, msg, args, arg, isOwner, isPremium });
 		} catch (e) {
 			console.error(e);
 		}

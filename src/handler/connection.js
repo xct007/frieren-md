@@ -4,7 +4,7 @@ import color from "../utils/color.js";
 
 export default async function connectionHandler(update, sock, connect) {
 	try {
-		let session = "skynet";
+		let session = "rose";
 		const { connection, lastDisconnect } = update;
 		if (connection) {
 			console.log(color("[SYS]", "yellow"), connection.toUpperCase());

@@ -14,7 +14,7 @@ export default {
 		const name = pushName === undefined ? sender.split("@")[0] : pushName;
 		let Jobs = await sock.sendMessage(
 			msg.from,
-			{ text: `Job created for ${name}\n\nPrompt: *${arg}*` },
+			{ text: `Job created for ${name}\n\nPrompt: *${arg}*\n\n_Stable Diffusion_` },
 			{ quoted: msg }
 		);
 		isPremium

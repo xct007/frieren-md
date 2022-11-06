@@ -23,18 +23,24 @@ const main = async () => {
 		});
 		store.bind(sock.ev);
 
-		sock.ev.process(async (events) => {
-			if (events["creds.update"]) await saveState();
+		sock.ev.on('creds.update', async (events) => {
+			await saveState();
+		});
 
-			if (events["connection.update"]) {
-				const update = events["connection.update"];
-				connectionHandler(update, sock, connect);
-			}
+		sock.ev.on('connection.update', (events) => {
+			connectionHandler(events, sock, connect);
+		});
 
-			if (events["messages.upsert"]) {
-				const m = events["messages.upsert"];
-				chatHandler(m, sock);
-			}
+		sock.ev.on('messages.upsert', (events) => {
+			chatHandler(events, sock);
+		});
+
+		sock.ev.on('messages.delete', (events) => {
+			console.log(events);
+		});
+
+		sock.ev.on('groups.update', (events) => {
+			console.log(events);
 		});
 	};
 	connect();
