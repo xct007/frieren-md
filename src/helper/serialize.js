@@ -150,7 +150,6 @@ export default function serialize(msg, sock) {
 			(msg.type === "listResponseMessage" &&
 				msg.message?.[msg.type]?.singleSelectReply?.selectedRowId) ||
 			(msg.type === "buttonsResponseMessage" &&
-				msg.message?.[msg.type]?.selectedButtonId?.includes("SMH") &&
 				msg.message?.[msg.type]?.selectedButtonId) ||
 			(msg.type === "templateButtonReplyMessage" &&
 				msg.message?.[msg.type]?.selectedId) ||

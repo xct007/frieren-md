@@ -19,27 +19,26 @@ const main = async () => {
 			printQRInTerminal: true,
 			auth: state,
 			logger: Pino({ level: "silent" }),
-			version,
 		});
 		store.bind(sock.ev);
 
-		sock.ev.on('creds.update', async (events) => {
+		sock.ev.on("creds.update", async (events) => {
 			await saveState();
 		});
 
-		sock.ev.on('connection.update', (events) => {
+		sock.ev.on("connection.update", (events) => {
 			connectionHandler(events, sock, connect);
 		});
 
-		sock.ev.on('messages.upsert', (events) => {
+		sock.ev.on("messages.upsert", (events) => {
 			chatHandler(events, sock);
 		});
 
-		sock.ev.on('messages.delete', (events) => {
+		sock.ev.on("messages.delete", (events) => {
 			console.log(events);
 		});
 
-		sock.ev.on('groups.update', (events) => {
+		sock.ev.on("groups.update", (events) => {
 			console.log(events);
 		});
 	};

@@ -49,8 +49,7 @@ export default async function chatHandler(m, sock) {
 
 		// Mode
 		if (mode == "self") {
-			if (!isOwner)
-				return
+			if (!isOwner) return;
 		}
 		// Log
 		const name = pushName === undefined ? sender.split("@")[0] : pushName;
@@ -71,10 +70,7 @@ export default async function chatHandler(m, sock) {
 		// Evaluated
 		if (isEval) {
 			if (isOwner) {
-				console.log(
-					color("[EVALUATE]", "aqua"),
-					color(name, "lime")
-				);
+				console.log(color("[EVALUATE]", "aqua"), color(name, "lime"));
 				let evaled,
 					text = arg,
 					{ inspect } = util;
@@ -96,10 +92,7 @@ export default async function chatHandler(m, sock) {
 
 		if (isExec) {
 			if (isOwner) {
-				console.log(
-					color("[EXEC]", "aqua"),
-					color(name, "lime")
-				);
+				console.log(color("[EXEC]", "aqua"), color(name, "lime"));
 				execS.exec(arg, async (err, stdout) => {
 					if (err) msg.reply(err);
 					if (stdout) msg.reply(stdout);
