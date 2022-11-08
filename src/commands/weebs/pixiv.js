@@ -6,8 +6,8 @@ export default {
 	desc: "Get images from pixiv r18 >//<",
 	category: "Weebs",
 	async exec({ msg, sock, arg, args }) {
-		if (args.length < 1) return msg.reply("Example: !pixi fgo");
-		let result = await pixi(arg);
+		if (args.length < 1) return msg.reply("Example: !pixiv fgo");
+		let result = await pixiv(arg);
 		if (result == false) return msg.reply("Sorry we can find that");
 		let buttons = [
 			{
