@@ -5,7 +5,7 @@ import express from "express";
 import { createServer } from "http";
 import got from "got";
 
-import pixiv from "../lib/pixiv.js";
+import pixiv from "./lib/pixiv.js";
 
 // Stupid thing
 async function server() {
