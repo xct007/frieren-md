@@ -7,7 +7,7 @@ import { createServer } from "http";
 async function server() {
 	const app = express();
 	const server = createServer(app);
-	const port = 3000;
+	const port = process.env.PORT || 3000;
 
 	app.get("/", (req, res) => {
 		res.send({
@@ -16,7 +16,7 @@ async function server() {
 	});
 
 	server.listen(port, async () => {
-		console.log(`Running on http://localhost:${port}`);
+		console.log(`Running on port ${port}`);
 		await readCommand();
 
 		main();
