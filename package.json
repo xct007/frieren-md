@@ -10,8 +10,8 @@
     "format": "prettier -w 'src/**/*.js' --use-tabs --parser typescript"
   },
   "dependencies": {
-    "@adiwajshing/baileys": "^4.4.0",
     "awesome-phonenumber": "^3.4.0",
+    "baileys": "^6.0.3",
     "baileys-bottle": "^1.0.2",
     "chalk": "4.1.2",
     "cheerio": "^1.0.0-rc.12",

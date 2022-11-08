@@ -9,7 +9,7 @@ export default {
 	async exec({ msg, sock, arg }) {
 		let file = msg.quoted ? msg.quoted : msg,
 			mime =
-				(file.msg || file).message?.imageMessage.mimetype ||
+				(file.msg || file).message?.imageMessage?.mimetype ||
 				file.mediaType ||
 				"",
 			{ pushName, sender } = msg,
