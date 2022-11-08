@@ -1,8 +1,8 @@
 import instagram from "../../lib/instagram.js";
 
 export default {
-	name: "youtubemp4",
-	alias: ["ytmp4", "ytv"],
+	name: "instagram",
+	alias: ["ig"],
 	desc: "Download video from youtube >//<",
 	category: "Downloader",
 	async exec({ msg, sock, arg, args }) {

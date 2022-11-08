@@ -16,14 +16,20 @@ export default {
 				type: 1,
 			},
 		];
-		return await sock.sendMessage(msg.from, {
-			image: {
-				url: result,
+		return await sock.sendMessage(
+			msg.from,
+			{
+				image: {
+					url: result,
+				},
+				caption: `_${arg}_`,
+				footer: "Kona Chan",
+				buttons: buttons,
+				headerType: 4,
 			},
-			caption: `_${arg}_`,
-			footer: "Kona Chan",
-			buttons: buttons,
-			headerType: 4,
-		});
+			{
+				quoted: msg,
+			}
+		);
 	},
 };

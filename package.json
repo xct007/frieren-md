@@ -16,7 +16,9 @@
     "chalk": "4.1.2",
     "cheerio": "^1.0.0-rc.12",
     "express": "^4.18.2",
+    "got": "^12.5.2",
     "moment-timezone": "^0.5.37",
+    "node-fetch": "^3.2.10",
     "path": "^0.12.7",
     "qrcode-terminal": "^0.12.0",
     "sqlite3": "^5.1.2"
