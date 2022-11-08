@@ -4,7 +4,7 @@ import makeWASocket, {
 	useMultiFileAuthState,
 	makeInMemoryStore,
 } from "@adiwajshing/baileys";
-import BaileysBottle from "baileys-bottle";
+// import BaileysBottle from "baileys-bottle";
 import Pino from "pino";
 import { config } from "../../config.js";
 import chatHandler from "../handler/chat.js";
@@ -32,10 +32,11 @@ const main = async () => {
 			printQRInTerminal: true,
 			auth: state,
 			logger: Pino({ level: "silent" }),
+			version,
 		});
 		store.bind(sock.ev);
 
-		sock.ev.on("creds.update", async (events) => {
+		sock.ev.on("creds.update", () => {
 			saveCreds();
 		});
 
@@ -45,22 +46,6 @@ const main = async () => {
 
 		sock.ev.on("messages.upsert", (events) => {
 			chatHandler(events, sock);
-		});
-
-		sock.ev.on("messages.delete", (events) => {
-			console.log(events);
-		});
-
-		sock.ev.on("groups.update", (events) => {
-			console.log(events);
-		});
-
-		sock.ev.on("chats.set", () => {
-			console.log("Chats: ", store.chats.all());
-		});
-
-		sock.ev.on("contacts.set", () => {
-			console.log("Contacts: ", Object.values(store.contacts));
 		});
 	};
 	connect();

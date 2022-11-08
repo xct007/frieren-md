@@ -1,3 +1,6 @@
+/**
+ * `http://storage.itsrose.my.id/lewd/${Math.floor(Math.random() * 400) + 10}.png`
+ */
 export default {
 	name: "lewd",
 	alias: ["lwd"],
