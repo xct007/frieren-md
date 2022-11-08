@@ -1,6 +1,6 @@
 import axios from "axios";
 
-async function youtube(url) {
+export default async function youtube(url) {
 	return new Promise(async (resolve, reject) => {
 		axios
 			.request({
@@ -48,4 +48,3 @@ async function youtube(url) {
 			});
 	});
 }
-export default { youtube };

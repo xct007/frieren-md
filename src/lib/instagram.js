@@ -1,6 +1,6 @@
 import axios from "axios";
 
-function instagram(url) {
+export default function instagram(url) {
 	return new Promise((resolve, reject) => {
 		let default_regex = /\/(p|reel|tv)\/(.*)/,
 			regex_1 = /\/(p|reel|tv)\/(.*)\//,
@@ -92,4 +92,3 @@ function instagram(url) {
 			});
 	});
 }
-export default { instagram };

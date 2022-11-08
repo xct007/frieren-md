@@ -142,7 +142,7 @@ async function urlParser(url) {
 			: reject(false);
 	});
 }
-async function tiktok(url) {
+export default async function tiktok(url) {
 	return new Promise(async (resolve, reject) => {
 		/**
 		 * Measure function time
@@ -163,4 +163,3 @@ async function tiktok(url) {
 		}
 	});
 }
-export default { tiktok };

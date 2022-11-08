@@ -1,4 +1,4 @@
-import { youtube } from "../../lib/youtube.js";
+import youtube from "../../lib/youtube.js";
 
 export default {
 	name: "youtubemp4",

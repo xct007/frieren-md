@@ -1,4 +1,4 @@
-import { tiktok } from "../../lib/tiktok.js";
+import tiktok from "../../lib/tiktok.js";
 
 export default {
 	name: "tiktok",

@@ -1,4 +1,4 @@
-import { instagram } from "../../lib/instagram.js";
+import instagram from "../../lib/instagram.js";
 
 export default {
 	name: "youtubemp4",
