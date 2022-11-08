@@ -1,0 +1,20 @@
+{
+	"name": "Frieren-MD",
+	"description": "WhatsApp Bot Script",
+	"repository": "https://github.com/xct007/frieren-mf",
+	"logo": "https://itsrose.my.id/rose.jpeg",
+	"keywords": ["multi-device", "whatsapp-bot"],
+	"buildpacks": [{
+			"url": "heroku/nodejs"
+		},
+		{
+			"url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
+		}
+	],
+	"formation": {
+		"worker": {
+			"quantity": 1,
+			"size": "free"
+		}
+	}
+}
