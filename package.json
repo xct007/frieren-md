@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node src/index.js",
+    "watch" : "nodemon --watch src/",
     "format": "prettier -w 'src/**/*.js' --use-tabs --parser typescript"
   },
   "dependencies": {
