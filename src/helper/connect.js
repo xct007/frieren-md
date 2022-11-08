@@ -1,4 +1,9 @@
-import makeWASocket, { fetchLatestBaileysVersion } from "@adiwajshing/baileys";
+import makeWASocket, {
+	fetchLatestBaileysVersion,
+	BufferJSON,
+	useMultiFileAuthState,
+	makeInMemoryStore,
+} from "@adiwajshing/baileys";
 import BaileysBottle from "baileys-bottle";
 import Pino from "pino";
 import { config } from "../../config.js";
@@ -6,12 +11,20 @@ import chatHandler from "../handler/chat.js";
 import connectionHandler from "../handler/connection.js";
 
 const main = async () => {
+	/*
 	const { auth, store } = await BaileysBottle.default({
 		type: "sqlite",
 		database: `${config.botname}.sql`,
-	});
+	});*/
 
-	const { state, saveState } = await auth.useAuthHandle();
+	const store = makeInMemoryStore({});
+	try {
+		store.readFromFile(`${config.botname}.json`);
+	} catch {}
+	setInterval(() => {
+		store.writeToFile(`${config.botname}.json`);
+	}, 10_000);
+	const { state, saveCreds } = await useMultiFileAuthState("./src/sessions");
 
 	const connect = async () => {
 		let { version } = await fetchLatestBaileysVersion();
@@ -23,7 +36,7 @@ const main = async () => {
 		store.bind(sock.ev);
 
 		sock.ev.on("creds.update", async (events) => {
-			await saveState();
+			saveCreds();
 		});
 
 		sock.ev.on("connection.update", (events) => {
@@ -40,6 +53,14 @@ const main = async () => {
 
 		sock.ev.on("groups.update", (events) => {
 			console.log(events);
+		});
+
+		sock.ev.on("chats.set", () => {
+			console.log("Chats: ", store.chats.all());
+		});
+
+		sock.ev.on("contacts.set", () => {
+			console.log("Contacts: ", Object.values(store.contacts));
 		});
 	};
 	connect();

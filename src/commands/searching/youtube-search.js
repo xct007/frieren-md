@@ -1,4 +1,4 @@
-import youtubeSearch from "../../lib/instagram.js";
+import youtubeSearch from "../../lib/youtube-search.js";
 
 export default {
 	name: "youtubesearch",
@@ -8,31 +8,37 @@ export default {
 	async exec({ msg, sock, arg, args }) {
 		if (args.length < 1) return msg.reply(`Where the query?`);
 		let { video } = await youtubeSearch(arg),
-			listSections = [];
-		video.map((v) => {
-			listSections.push({
-				title: v.title,
-				rows: [
-					{
-						title: "Video",
-						rowId: "!ytmp4 " + v.url,
-						description: `Download ${v.title} (${v.url})`,
-					},
-					{
-						title: "Audio",
-						rowId: "!ytmp3 " + v.url,
-						description: `Download ${v.title} (${v.url})`,
-					},
-				],
+			listSections = [],
+			tmp = [...video].map((v) => {
+				switch (v.type) {
+					case "video":
+						{
+							listSections.push({
+								title: v.title,
+								rows: [
+									{
+										title: "Video",
+										rowId: "!ytmp4 " + v.url,
+										description: `Download ${v.title} (${v.url})`,
+									},
+									{
+										title: "Audio",
+										rowId: "!ytmp3 " + v.url,
+										description: `Download ${v.title} (${v.url})`,
+									},
+								],
+							});
+						}
+						break;
+				}
 			});
-		});
 		const listMessage = {
-			text: "Result From Youtube",
+			text: "Query : *" + arg + "*\n",
 			footer: "Youtube Search",
-			title: "Query : *" + arg + "*",
+			title: "Result from youtube\n\n",
 			buttonText: "Choose",
-			listSections,
+			sections: listSections,
 		};
-		return sock.sendMessage(msg.from, listMessage, { quoted: msg });
+		return await sock.sendMessage(msg.from, listMessage);
 	},
 };

@@ -16,9 +16,7 @@ async function server() {
 	});
 
 	server.listen(port, async () => {
-		console.log(`Running on port ${port}`);
 		await readCommand();
-
 		main();
 	});
 }

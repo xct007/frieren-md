@@ -4,7 +4,7 @@ export default {
 	name: "kona",
 	alias: ["konachan"],
 	desc: "Get images from konachan >//<",
-	category: "weebs",
+	category: "Weebs",
 	async exec({ msg, sock, arg, args }) {
 		if (args.length < 1) return msg.reply("Example: !kona sakura");
 		let result = await kona(arg);

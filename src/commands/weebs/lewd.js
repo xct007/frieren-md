@@ -7,7 +7,7 @@ export default {
 		return sock.sendMessage(
 			msg.from,
 			{
-				image: { url: "https://api.itsrose/my.id/dewasa/lewd" },
+				image: { url: "https://api.itsrose.my.id/dewasa/lewd" },
 				caption: "Found this!",
 				footer: "Lewd",
 				buttons: [
