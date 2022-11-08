@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node src/index.js",
-    "watch" : "nodemon --watch src/",
+    "watch": "nodemon --watch src/",
     "format": "prettier -w 'src/**/*.js' --use-tabs --parser typescript"
   },
   "dependencies": {
@@ -15,6 +15,7 @@
     "baileys-bottle": "^1.0.2",
     "chalk": "4.1.2",
     "cheerio": "^1.0.0-rc.12",
+    "express": "^4.18.2",
     "moment-timezone": "^0.5.37",
     "path": "^0.12.7",
     "qrcode-terminal": "^0.12.0",
