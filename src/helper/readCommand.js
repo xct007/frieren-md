@@ -20,9 +20,7 @@ export default async function readCommand() {
 		for (let file of commandFiles) {
 			color("Inside ", "blue");
 			const command = await import(resolve($rootDir, $dir, file));
-			try {
-				djs.commands.set(command.default.name, command.default);
-			} catch {}
+			djs.commands.set(command.default.name, command.default);
 			console.log(
 				color("[SYS]", "yellow"),
 				`${command.default.name} Command Loaded!`
