@@ -60,8 +60,6 @@ const db = async () => {
 			logger: Pino({ level: 'silent' }),
 		});
 
-		store.bind(sock.ev);
-
 		sock.ev.on('creds.update', () => {
 			saveCreds();
 		});
