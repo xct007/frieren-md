@@ -1,6 +1,8 @@
-import fetch from "node-fetch";
-import { FormData, Blob } from "formdata-node";
-import { fileTypeFromBuffer } from "file-type";
+/** @format */
+
+import fetch from 'node-fetch';
+import { FormData, Blob } from 'formdata-node';
+import { fileTypeFromBuffer } from 'file-type';
 /**
  * Upload epheremal file to file.io
  * `Expired in 1 day`
@@ -11,10 +13,10 @@ const fileIO = async (buffer) => {
 	const { ext, mime } = (await fileTypeFromBuffer(buffer)) || {};
 	let form = new FormData();
 	const blob = new Blob([buffer.toArrayBuffer()], { type: mime });
-	form.append("file", blob, "tmp." + ext);
-	let res = await fetch("https://file.io/?expires=1d", {
+	form.append('file', blob, 'tmp.' + ext);
+	let res = await fetch('https://file.io/?expires=1d', {
 		// 1 Day Expiry Date
-		method: "POST",
+		method: 'POST',
 		body: form,
 	});
 	let json = await res.json();
@@ -33,10 +35,10 @@ const RESTfulAPI = async (inp) => {
 	if (!Array.isArray(inp)) buffers = [inp];
 	for (let buffer of buffers) {
 		const blob = new Blob([buffer.toArrayBuffer()]);
-		form.append("file", blob);
+		form.append('file', blob);
 	}
-	let res = await fetch("https://storage.restfulapi.my.id/upload", {
-		method: "POST",
+	let res = await fetch('https://storage.restfulapi.my.id/upload', {
+		method: 'POST',
 		body: form,
 	});
 	let json = await res.text();

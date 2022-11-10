@@ -1,18 +1,20 @@
-import pixiv from "../../lib/pixiv.js";
+/** @format */
+
+import pixiv from '../../lib/pixiv.js';
 
 export default {
-	name: "pixiv",
-	alias: ["pxv"],
-	desc: "Get images from pixiv r18 >//<",
-	category: "Weebs",
+	name: 'pixiv',
+	alias: ['pxv'],
+	desc: 'Get images from pixiv r18 >//<',
+	category: 'Weebs',
 	async exec({ msg, sock, arg, args }) {
-		if (args.length < 1) return msg.reply("Example: !pixiv fgo");
+		if (args.length < 1) return msg.reply('Example: !pixiv fgo');
 		let result = await pixiv(arg);
-		if (result == false) return msg.reply("Sorry we can find that");
+		if (result == false) return msg.reply('Sorry we can find that');
 		let buttons = [
 			{
-				buttonId: "!pixiv " + arg,
-				buttonText: { displayText: "Re-Search" },
+				buttonId: '!pixiv ' + arg,
+				buttonText: { displayText: 'Re-Search' },
 				type: 1,
 			},
 		];
@@ -23,7 +25,7 @@ export default {
 					url: result.url,
 				},
 				caption: `Title : ${result.title}\nAuthor: ${result.author}`,
-				footer: "Pixiv",
+				footer: 'Pixiv',
 				buttons: buttons,
 				headerType: 4,
 			},

@@ -1,19 +1,21 @@
-import axios from "axios";
+/** @format */
+
+import axios from 'axios';
 
 export default async function youtube(url) {
 	return new Promise(async (resolve, reject) => {
 		axios
 			.request({
-				method: "POST",
-				url: "https://ssyoutube.com/api/convert",
+				method: 'POST',
+				url: 'https://ssyoutube.com/api/convert',
 				data: {
 					url: url,
 				},
 				headers: {
-					Accept: "application/json, text/plain, */*",
-					"Content-Type": "application/json",
-					"User-Agent":
-						"Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0",
+					Accept: 'application/json, text/plain, */*',
+					'Content-Type': 'application/json',
+					'User-Agent':
+						'Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0',
 				},
 			})
 			.then(async ({ data }) => {

@@ -1,8 +1,10 @@
-import { createReadStream, promises, ReadStream } from "fs";
-import { join } from "path";
-import { spawn } from "child_process";
-import { Readable } from "stream";
-import Helper from "./helper.js";
+/** @format */
+
+import { createReadStream, promises, ReadStream } from 'fs';
+import { join } from 'path';
+import { spawn } from 'child_process';
+import { Readable } from 'stream';
+import Helper from './helper.js';
 
 const __dirname = Helper.__dirname(import.meta.url);
 /**
@@ -17,7 +19,7 @@ const __dirname = Helper.__dirname(import.meta.url);
  *  clear: () => Promise<void>;
  * }>}
  */
-function ffmpeg(buffer, args = [], ext = "", ext2 = "") {
+function ffmpeg(buffer, args = [], ext = '', ext2 = '') {
 	return new Promise(async (resolve, reject) => {
 		try {
 			const tmp = join(__dirname, `../tmp/${Date.now()}.${ext}`);
@@ -27,9 +29,9 @@ function ffmpeg(buffer, args = [], ext = "", ext2 = "") {
 			if (isStream) await Helper.saveStreamToFile(buffer, tmp);
 			else await promises.writeFile(tmp, buffer);
 
-			spawn("ffmpeg", ["-y", "-i", tmp, ...args, out])
-				.once("error", reject)
-				.once("close", async (code) => {
+			spawn('ffmpeg', ['-y', '-i', tmp, ...args, out])
+				.once('error', reject)
+				.once('close', async (code) => {
 					try {
 						await promises.unlink(tmp);
 						if (code !== 0) return reject(code);
@@ -66,9 +68,9 @@ function ffmpeg(buffer, args = [], ext = "", ext2 = "") {
 function toPTT(buffer, ext) {
 	return ffmpeg(
 		buffer,
-		["-vn", "-c:a", "libopus", "-b:a", "128k", "-vbr", "on"],
+		['-vn', '-c:a', 'libopus', '-b:a', '128k', '-vbr', 'on'],
 		ext,
-		"ogg"
+		'ogg'
 	);
 }
 
@@ -82,18 +84,18 @@ function toAudio(buffer, ext) {
 	return ffmpeg(
 		buffer,
 		[
-			"-vn",
-			"-c:a",
-			"libopus",
-			"-b:a",
-			"128k",
-			"-vbr",
-			"on",
-			"-compression_level",
-			"10",
+			'-vn',
+			'-c:a',
+			'libopus',
+			'-b:a',
+			'128k',
+			'-vbr',
+			'on',
+			'-compression_level',
+			'10',
 		],
 		ext,
-		"opus"
+		'opus'
 	);
 }
 
@@ -107,21 +109,21 @@ function toVideo(buffer, ext) {
 	return ffmpeg(
 		buffer,
 		[
-			"-c:v",
-			"libx264",
-			"-c:a",
-			"aac",
-			"-ab",
-			"128k",
-			"-ar",
-			"44100",
-			"-crf",
-			"32",
-			"-preset",
-			"slow",
+			'-c:v',
+			'libx264',
+			'-c:a',
+			'aac',
+			'-ab',
+			'128k',
+			'-ar',
+			'44100',
+			'-crf',
+			'32',
+			'-preset',
+			'slow',
 		],
 		ext,
-		"mp4"
+		'mp4'
 	);
 }
 

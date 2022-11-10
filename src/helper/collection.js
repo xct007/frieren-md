@@ -1,6 +1,8 @@
+/** @format */
+
 export class Collection extends Map {
 	find(fn = (value, key, collection) => {}, thisArg) {
-		if (typeof thisArg !== "undefined") fn = fn.bind(thisArg);
+		if (typeof thisArg !== 'undefined') fn = fn.bind(thisArg);
 		for (const [key, val] of this) {
 			if (fn(val, key, this)) return val;
 		}

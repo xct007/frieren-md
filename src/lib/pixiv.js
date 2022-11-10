@@ -1,10 +1,12 @@
-import axios from "axios";
+/** @format */
+
+import axios from 'axios';
 
 export default function random(query) {
 	return new Promise((res, rej) => {
 		axios
 			.get(
-				"https://api.lolicon.app/setu/v2?size=regular&r18=1&num=20&keyword=" +
+				'https://api.lolicon.app/setu/v2?size=regular&r18=1&num=20&keyword=' +
 					query
 			)
 			.then(({ data }) => {
@@ -29,7 +31,7 @@ export default function random(query) {
 export function pixiv(idOrQuery) {
 	return new Promise((res, rej) => {
 		axios
-			.get("https://api.lolicon.app/setu/v2?pid=" + idOrQuery)
+			.get('https://api.lolicon.app/setu/v2?pid=' + idOrQuery)
 			.then(({ data }) => {
 				let Data = data.data;
 				Data.length == 0

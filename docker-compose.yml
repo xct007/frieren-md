@@ -1,9 +1,11 @@
-version: "3.9"  # optional since v1.27.0
+# @format
+
+version: '3.9' # optional since v1.27.0
 services:
   web:
     build: .
     ports:
-      - "8000:5000"
+      - '8000:5000'
     volumes:
       - .:/code
       - logvolume01:/var/log

@@ -1,11 +1,18 @@
-import { main } from "./helper/connect.js";
-import readCommand from "./helper/readCommand.js";
+/** @format */
 
-import express from "express";
-import { createServer } from "http";
-import got from "got";
+import { main, db } from './helper/connect.js';
+import readCommand from './helper/readCommand.js';
 
-import pixiv from "./lib/pixiv.js";
+import express from 'express';
+import { createServer } from 'http';
+import got from 'got';
+import { config } from '../config.js';
+import pixiv from './lib/pixiv.js';
+
+global.api = (name, path = '/', query = {}) =>
+	(name in config.API ? config.API[name] : name) +
+	path +
+	(query ? '?' + new URLSearchParams(Object.entries({ ...query })) : '');
 
 // Stupid thing
 async function server() {
@@ -13,7 +20,7 @@ async function server() {
 	const server = createServer(app);
 	const port = process.env.PORT || 3000;
 
-	app.get("/", (req, res) => {
+	app.get('/', (req, res) => {
 		pixiv()
 			.then(({ url }) => {
 				try {
@@ -33,7 +40,7 @@ async function server() {
 
 	server.listen(port, async () => {
 		await readCommand();
-		main();
+		process.env.URI ? db() : main();
 	});
 }
 

@@ -1,0 +1,4 @@
+src/sessions
+rose.json
+*.html
+*.lock

@@ -1,16 +1,17 @@
 /**
  * From @bochilteam/scraper
  *
+ * @format
  * @prettier-format
  */
 
-import cheerio from "cheerio";
-import got from "got";
+import cheerio from 'cheerio';
+import got from 'got';
 export default async function youtubeSearch(query) {
-	const body = await got("https://www.youtube.com/results", {
+	const body = await got('https://www.youtube.com/results', {
 		headers: {
-			"user-agent":
-				"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36",
+			'user-agent':
+				'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36',
 		},
 		searchParams: {
 			search_query: query,
@@ -18,12 +19,12 @@ export default async function youtubeSearch(query) {
 	}).text();
 	const $ = cheerio.load(body);
 	let sc;
-	$("script").map(function () {
+	$('script').map(function () {
 		const el = $(this).html();
 		let regex;
-		if ((regex = /var ytInitialData = /gi.exec(el || ""))) {
+		if ((regex = /var ytInitialData = /gi.exec(el || ''))) {
 			sc = JSON.parse(
-				regex.input.replace(/^var ytInitialData = /i, "").replace(/;$/, "")
+				regex.input.replace(/^var ytInitialData = /i, '').replace(/;$/, '')
 			);
 		}
 		return regex && sc;
@@ -71,12 +72,12 @@ export default async function youtubeSearch(query) {
 				_13;
 			const typeName = Object.keys(v)[0];
 			const result = v[typeName];
-			if (["horizontalCardListRenderer", "shelfRenderer"].includes(typeName)) {
+			if (['horizontalCardListRenderer', 'shelfRenderer'].includes(typeName)) {
 				return;
 			} // Todo: add this result as results
-			const isChannel = typeName === "channelRenderer";
-			const isVideo = typeName === "videoRenderer";
-			const isMix = typeName === "radioRenderer";
+			const isChannel = typeName === 'channelRenderer';
+			const isVideo = typeName === 'videoRenderer';
+			const isMix = typeName === 'radioRenderer';
 			if (isVideo) {
 				const view =
 					((_a = result.viewCountText) === null || _a === void 0
@@ -97,7 +98,7 @@ export default async function youtubeSearch(query) {
 							? void 0
 							: _e.find(
 									(v) =>
-										Object.keys(v)[0] === "thumbnailOverlayTimeStatusRenderer"
+										Object.keys(v)[0] === 'thumbnailOverlayTimeStatusRenderer'
 							  )) === null || _f === void 0
 						? void 0
 						: _f.thumbnailOverlayTimeStatusRenderer.text;
@@ -113,16 +114,16 @@ export default async function youtubeSearch(query) {
 				(_h =
 					(duration === null || duration === void 0
 						? void 0
-						: duration.split(".").length) && duration.indexOf(":") === -1
-						? duration.split(".")
+						: duration.split('.').length) && duration.indexOf(':') === -1
+						? duration.split('.')
 						: duration === null || duration === void 0
 						? void 0
-						: duration.split(":")) === null || _h === void 0
+						: duration.split(':')) === null || _h === void 0
 					? void 0
 					: _h.forEach(
 							(v, i, arr) =>
 								(durationS +=
-									durationMultipliers[arr.length]["" + i] * parseInt(v))
+									durationMultipliers[arr.length]['' + i] * parseInt(v))
 					  );
 				results.video.push({
 					authorName:
@@ -148,7 +149,7 @@ export default async function youtubeSearch(query) {
 							? void 0
 							: _p.pop().url,
 					videoId,
-					url: encodeURI("https://www.youtube.com/watch?v=" + videoId),
+					url: encodeURI('https://www.youtube.com/watch?v=' + videoId),
 					thumbnail: result.thumbnail.thumbnails.pop().url,
 					title:
 						(_t =
@@ -180,7 +181,7 @@ export default async function youtubeSearch(query) {
 								? void 0
 								: _x.map(({ text }) => text)) === null || _y === void 0
 							? void 0
-							: _y.join(""),
+							: _y.join(''),
 					publishedTime:
 						(_z = result.publishedTimeText) === null || _z === void 0
 							? void 0
@@ -199,16 +200,16 @@ export default async function youtubeSearch(query) {
 						(_1 =
 							((view === null || view === void 0
 								? void 0
-								: view.indexOf("x")) === -1
+								: view.indexOf('x')) === -1
 								? view === null || view === void 0
 									? void 0
-									: view.split(" ")[0]
+									: view.split(' ')[0]
 								: view === null || view === void 0
 								? void 0
-								: view.split("x")[0]) || view) === null || _1 === void 0
+								: view.split('x')[0]) || view) === null || _1 === void 0
 							? void 0
 							: _1.trim(),
-					type: typeName.replace(/Renderer/i, ""),
+					type: typeName.replace(/Renderer/i, ''),
 				});
 			}
 			if (isChannel) {
@@ -222,7 +223,7 @@ export default async function youtubeSearch(query) {
 						: _3.simpleText);
 				results.channel.push({
 					channelId,
-					url: encodeURI("https://www.youtube.com/channel/" + channelId),
+					url: encodeURI('https://www.youtube.com/channel/' + channelId),
 					channelName:
 						result.title.simpleText ||
 						((_5 =
@@ -232,7 +233,7 @@ export default async function youtubeSearch(query) {
 							? void 0
 							: _5.text),
 					avatar:
-						"https:" +
+						'https:' +
 						((_6 = result.thumbnail.thumbnails.filter(({ url }) => url)) ===
 							null || _6 === void 0
 							? void 0
@@ -241,7 +242,7 @@ export default async function youtubeSearch(query) {
 						((_7 = result.ownerBadges) === null || _7 === void 0
 							? void 0
 							: _7.pop().metadataBadgeRenderer.style) ===
-						"BADGE_STYLE_TYPE_VERIFIED",
+						'BADGE_STYLE_TYPE_VERIFIED',
 					subscriberH:
 						_subscriber === null || _subscriber === void 0
 							? void 0
@@ -249,7 +250,7 @@ export default async function youtubeSearch(query) {
 					subscriber:
 						_subscriber === null || _subscriber === void 0
 							? void 0
-							: _subscriber.split(" ")[0],
+							: _subscriber.split(' ')[0],
 					videoCount: parseInt(
 						(_9 =
 							(_8 = result.videoCountText) === null || _8 === void 0
@@ -270,8 +271,8 @@ export default async function youtubeSearch(query) {
 								? void 0
 								: _12.map(({ text }) => text)) === null || _13 === void 0
 							? void 0
-							: _13.join(""),
-					type: typeName.replace(/Renderer/i, ""),
+							: _13.join(''),
+					type: typeName.replace(/Renderer/i, ''),
 				});
 			}
 			if (isMix) {
@@ -289,7 +290,7 @@ export default async function youtubeSearch(query) {
 							duration: childVideoRenderer.lengthText.simpleText,
 						};
 					}),
-					type: "mix",
+					type: 'mix',
 				});
 			}
 		}

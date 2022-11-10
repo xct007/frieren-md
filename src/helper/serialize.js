@@ -1,16 +1,18 @@
+/** @format */
+
 // import { proto, getContentType, jidDecode, downloadContentFromMessage } from "@adiwajshing/baileys"
-import pkg from "@adiwajshing/baileys";
+import pkg from '@adiwajshing/baileys';
 const { proto, getContentType, jidDecode, downloadContentFromMessage } = pkg;
 
 const downloadMedia = (message, pathFile) =>
 	new Promise(async (resolve, reject) => {
 		const type = Object.keys(message)[0];
 		let mimeMap = {
-			imageMessage: "image",
-			videoMessage: "video",
-			stickerMessage: "sticker",
-			documentMessage: "document",
-			audioMessage: "audio",
+			imageMessage: 'image',
+			videoMessage: 'video',
+			stickerMessage: 'sticker',
+			documentMessage: 'document',
+			audioMessage: 'audio',
 		};
 		try {
 			if (pathFile) {
@@ -44,7 +46,7 @@ const decodeJid = (jid) => {
 	if (/:\d+@/gi.test(jid)) {
 		const decode = jidDecode(jid) || {};
 		return (
-			(decode.user && decode.server && decode.user + "@" + decode.server) ||
+			(decode.user && decode.server && decode.user + '@' + decode.server) ||
 			jid
 		).trim();
 	} else return jid.trim();
@@ -55,7 +57,7 @@ export default function serialize(msg, sock) {
 		msg.id = msg.key.id;
 		msg.isSelf = msg.key.fromMe;
 		msg.from = decodeJid(msg.key.remoteJid);
-		msg.isGroup = msg.from.endsWith("@g.us");
+		msg.isGroup = msg.from.endsWith('@g.us');
 		msg.sender = msg.isGroup
 			? decodeJid(msg.key.participant)
 			: msg.isSelf
@@ -64,16 +66,16 @@ export default function serialize(msg, sock) {
 	}
 	if (msg.message) {
 		msg.type = getContentType(msg.message);
-		if (msg.type === "ephemeralMessage") {
+		if (msg.type === 'ephemeralMessage') {
 			msg.message = msg.message[msg.type].message;
 			const tipe = Object.keys(msg.message)[0];
 			msg.type = tipe;
-			if (tipe === "viewOnceMessage") {
+			if (tipe === 'viewOnceMessage') {
 				msg.message = msg.message[msg.type].message;
 				msg.type = getContentType(msg.message);
 			}
 		}
-		if (msg.type === "viewOnceMessage") {
+		if (msg.type === 'viewOnceMessage') {
 			msg.message = msg.message[msg.type].message;
 			msg.type = getContentType(msg.message);
 		}
@@ -83,13 +85,13 @@ export default function serialize(msg, sock) {
 			: null;
 		try {
 			const quoted = msg.message[msg.type]?.contextInfo;
-			if (quoted.quotedMessage["ephemeralMessage"]) {
+			if (quoted.quotedMessage['ephemeralMessage']) {
 				const tipe = Object.keys(
 					quoted.quotedMessage.ephemeralMessage.message
 				)[0];
-				if (tipe === "viewOnceMessage") {
+				if (tipe === 'viewOnceMessage') {
 					msg.quoted = {
-						type: "view_once",
+						type: 'view_once',
 						stanzaId: quoted.stanzaId,
 						participant: decodeJid(quoted.participant),
 						message:
@@ -98,22 +100,22 @@ export default function serialize(msg, sock) {
 					};
 				} else {
 					msg.quoted = {
-						type: "ephemeral",
+						type: 'ephemeral',
 						stanzaId: quoted.stanzaId,
 						participant: decodeJid(quoted.participant),
 						message: quoted.quotedMessage.ephemeralMessage.message,
 					};
 				}
-			} else if (quoted.quotedMessage["viewOnceMessage"]) {
+			} else if (quoted.quotedMessage['viewOnceMessage']) {
 				msg.quoted = {
-					type: "view_once",
+					type: 'view_once',
 					stanzaId: quoted.stanzaId,
 					participant: decodeJid(quoted.participant),
 					message: quoted.quotedMessage.viewOnceMessage.message,
 				};
 			} else {
 				msg.quoted = {
-					type: "normal",
+					type: 'normal',
 					stanzaId: quoted.stanzaId,
 					participant: decodeJid(quoted.participant),
 					message: quoted.quotedMessage,
@@ -121,7 +123,7 @@ export default function serialize(msg, sock) {
 			}
 			msg.quoted.isSelf = msg.quoted.participant === decodeJid(sock.user.id);
 			msg.quoted.mtype = Object.keys(msg.quoted.message).filter(
-				(v) => v.includes("Message") || v.includes("conversation")
+				(v) => v.includes('Message') || v.includes('conversation')
 			)[0];
 			msg.quoted.text =
 				msg.quoted.message[msg.quoted.mtype]?.text ||
@@ -130,7 +132,7 @@ export default function serialize(msg, sock) {
 				msg.quoted.message[msg.quoted.mtype]?.hydratedTemplate
 					?.hydratedContentText ||
 				msg.quoted.message[msg.quoted.mtype] ||
-				"";
+				'';
 			msg.quoted.key = {
 				id: msg.quoted.stanzaId,
 				fromMe: msg.quoted.isSelf,
@@ -147,13 +149,13 @@ export default function serialize(msg, sock) {
 			msg.message?.conversation ||
 			msg.message?.[msg.type]?.text ||
 			msg.message?.[msg.type]?.caption ||
-			(msg.type === "listResponseMessage" &&
+			(msg.type === 'listResponseMessage' &&
 				msg.message?.[msg.type]?.singleSelectReply?.selectedRowId) ||
-			(msg.type === "buttonsResponseMessage" &&
+			(msg.type === 'buttonsResponseMessage' &&
 				msg.message?.[msg.type]?.selectedButtonId) ||
-			(msg.type === "templateButtonReplyMessage" &&
+			(msg.type === 'templateButtonReplyMessage' &&
 				msg.message?.[msg.type]?.selectedId) ||
-			"";
+			'';
 		msg.reply = (text) => sock.sendMessage(msg.from, { text }, { quoted: msg });
 		msg.download = (pathFile) => downloadMedia(msg.message, pathFile);
 	}

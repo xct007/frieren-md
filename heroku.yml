@@ -1,3 +1,5 @@
+# @format
+
 build:
-    docker:
-        web: Dockerfile
+  docker:
+    web: Dockerfile

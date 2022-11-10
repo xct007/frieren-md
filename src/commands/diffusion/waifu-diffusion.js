@@ -1,17 +1,19 @@
+/** @format */
+
 export default {
-	name: "waifu",
-	alias: ["waf"],
-	desc: "Waifu diffusion",
-	category: "Diffusion",
+	name: 'waifu',
+	alias: ['waf'],
+	desc: 'Waifu diffusion',
+	category: 'Diffusion',
 	async exec({ msg, sock, arg, args, isOwner, isPremium }) {
 		sock.waifu = sock.waifu ? sock.waifu : {};
 		if (msg.sender in sock.waifu)
 			return msg.reply(
-				"You have 1 job undone, please wait before creating new job, or upgrade to premium"
+				'You have 1 job undone, please wait before creating new job, or upgrade to premium'
 			);
-		if (args.length < 1) return msg.reply("No prompt!");
+		if (args.length < 1) return msg.reply('No prompt!');
 		const { pushName, sender } = msg;
-		const name = pushName === undefined ? sender.split("@")[0] : pushName;
+		const name = pushName === undefined ? sender.split('@')[0] : pushName;
 		let Jobs = await sock.sendMessage(
 			msg.from,
 			{
@@ -30,15 +32,15 @@ export default {
 				{
 					image: {
 						url:
-							"https://api.itsrose.my.id/image/waifu/diffusion?prompt=" +
+							'https://api.itsrose.my.id/image/waifu/diffusion?prompt=' +
 							encodeURIComponent(arg),
 					},
 					caption: `Job successfully created\nBy : *${name}*\nPrompt : \n *${arg}*`,
-					footer: "Waifu diffusion",
+					footer: 'Waifu diffusion',
 					buttons: [
 						{
-							buttonId: "!waifu " + arg,
-							buttonText: { displayText: "Re-Create" },
+							buttonId: '!waifu ' + arg,
+							buttonText: { displayText: 'Re-Create' },
 							type: 1,
 						},
 					],
@@ -49,7 +51,7 @@ export default {
 				}
 			);
 		} catch (e) {
-			msg.reply("Jobs error: " + e.TypeError);
+			msg.reply('Jobs error: ' + e.TypeError);
 		} finally {
 			delete sock.waifu[msg.sender];
 			await sock.sendMessage(msg.from, { delete: Jobs.key });

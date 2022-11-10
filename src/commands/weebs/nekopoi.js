@@ -1,20 +1,22 @@
+/** @format */
+
 // import { nekopoi } from "../../lib/nekopoi.js";
-import fetch from "node-fetch";
+import fetch from 'node-fetch';
 
 export default {
-	name: "nekopoi",
-	alias: ["nkp"],
-	desc: "Nekopoi >//<",
-	category: "Weebs",
+	name: 'nekopoi',
+	alias: ['nkp'],
+	desc: 'Nekopoi >//<',
+	category: 'Weebs',
 	async exec({ msg, sock, arg, args }) {
 		if (args.length < 1) return msg.reply(`Where the query?`);
 		switch (args[0].toLowerCase()) {
-			case "search":
+			case 'search':
 				{
 					try {
-						let q = arg.toLowerCase().replace("search ", ""),
+						let q = arg.toLowerCase().replace('search ', ''),
 							{ result } = await fetch(
-								"https://api.itsrose.my.id/dewasa/nekopoi/search?query=" + q
+								'https://api.itsrose.my.id/dewasa/nekopoi/search?query=' + q
 							).then((a) => a.json()),
 							listSections = [],
 							tmp = [...result].map((v) => {
@@ -22,50 +24,50 @@ export default {
 									title: v.title,
 									rows: [
 										{
-											title: "- Detail",
-											rowId: "!nekopoi detail " + v.id,
+											title: '- Detail',
+											rowId: '!nekopoi detail ' + v.id,
 											description: `*${v.title}* (${v.id}) - ${v.date}`,
 										},
 									],
 								});
 							});
 						const listMessage = {
-							text: "Query : *" + q + "*\n",
-							footer: "Nekopoi Search",
-							title: "Result from nekopoi\n\n",
-							buttonText: "Choose",
+							text: 'Query : *' + q + '*\n',
+							footer: 'Nekopoi Search',
+							title: 'Result from nekopoi\n\n',
+							buttonText: 'Choose',
 							sections: listSections,
 						};
 						return await sock.sendMessage(msg.from, listMessage);
 					} catch {
-						return msg.reply("Something wrong!");
+						return msg.reply('Something wrong!');
 					}
 				}
 				break;
-			case "detail":
+			case 'detail':
 				{
 					try {
-						let q = arg.toLowerCase().replace("detail ", ""),
+						let q = arg.toLowerCase().replace('detail ', ''),
 							{ result } = await fetch(
-								"https://api.itsrose.my.id/dewasa/nekopoi/detail?id=" + q
+								'https://api.itsrose.my.id/dewasa/nekopoi/detail?id=' + q
 							).then((a) => a.json());
 						if (result.episode) {
-							let teks = "",
+							let teks = '',
 								listSections = [],
 								A = [...result.episode].map((v) => {
 									listSections.push({
 										title: v.title,
 										rows: [
 											{
-												title: "- Detail",
-												rowId: "!nekopoi detail " + v.id,
+												title: '- Detail',
+												rowId: '!nekopoi detail ' + v.id,
 												description: `*${v.title}* (${v.id}) - ${v.date}`,
 											},
 										],
 									});
 								});
 							teks += `\n*Title :* ${result.title} (${
-								result.info_meta.aliases ? result.info_meta.aliases : " "
+								result.info_meta.aliases ? result.info_meta.aliases : ' '
 							})\n*Status :* ${result.info_meta.status}\n*Release :* ${
 								result.info_meta.tayang
 							}\n*Produser :* ${result.info_meta.produser}\n*Duration :* ${
@@ -78,9 +80,9 @@ export default {
 							);
 							const listMessage = {
 								text: teks,
-								footer: "Nekopoi Detail",
-								title: "ID : " + result.id,
-								buttonText: "Episode",
+								footer: 'Nekopoi Detail',
+								title: 'ID : ' + result.id,
+								buttonText: 'Episode',
 								sections: listSections,
 							};
 							return await sock.sendMessage(msg.from, listMessage);
@@ -96,13 +98,13 @@ export default {
 							);
 						}
 					} catch (e) {
-						return msg.reply("Something wrong!");
+						return msg.reply('Something wrong!');
 					}
 				}
 				break;
 			default: {
 				return msg.reply(
-					"Use !nekopoi search <query>\nUse !nekopoi detail <id>"
+					'Use !nekopoi search <query>\nUse !nekopoi detail <id>'
 				);
 			}
 		}

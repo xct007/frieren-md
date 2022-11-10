@@ -4,7 +4,8 @@
 	"repository": "https://github.com/xct007/frieren-mf",
 	"logo": "https://itsrose.my.id/rose.jpeg",
 	"keywords": ["multi-device", "whatsapp-bot"],
-	"buildpacks": [{
+	"buildpacks": [
+		{
 			"url": "heroku/nodejs"
 		},
 		{

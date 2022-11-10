@@ -1,9 +1,8 @@
-
+<!-- @format -->
 
 # Frieren-MD
 
-A simple *lightweight* whatsapp BOT using *Baileys Multi-device*
-
+A simple _lightweight_ whatsapp BOT using _Baileys Multi-device_
 
 ## Installation
 
@@ -14,13 +13,17 @@ git clone https://github.com/xct007/frieren-md
 ```
 
 Install Packages
+
 ```bash
 npm install --save
 ```
+
 or using yarn
+
 ```bash
 yarn install
-```    
+```
+
 ## Run
 
 Simple in terminal
@@ -30,16 +33,20 @@ npm run start
 ```
 
 # Features
+
 - Downloader
+
   - [ ] Instagram [BUG]
   - [x] Tiktok MP4/MP3
   - [x] Youtube MP4/MP3
 
 - Diffusion
+
   - [x] Stable
   - [x] Waifu [BUG]
 
 - Weebs
+
   - [x] Kona Chan
   - [ ] Pixiv [BUG]
   - [x] Lewd
@@ -49,7 +56,9 @@ npm run start
   - [x] Youtube Search
 
 ## BUG'S
+
 - Not working on windows
+
 ## Roadmap
 
 - [ ] Fix current BUG
@@ -57,12 +66,11 @@ npm run start
   - [ ] Pixiv (Remove api request)
   - [ ] Waifu (Diffusion)
 - [ ] Add more features
-  - [ ] Image 
+  - [ ] Image
     - [ ] Enhancer
     - [ ] Palette
     - [ ] Others
   - [ ] Up coming..
-
 
 ## Contributing
 
