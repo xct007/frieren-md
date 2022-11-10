@@ -49,7 +49,7 @@ const db = async () => {
 	const memek = new MongoClient(process.env.URI, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
-	}));
+	});
 	const store = memek.db('auth').collection('Sims');
 	const { state, saveCreds } = await mongoDbAuth(store);
 
