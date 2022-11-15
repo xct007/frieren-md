@@ -11,28 +11,8 @@ export default {
 		if (args.length < 1) return msg.reply(`Where the link?`);
 		let json = await instagram(args[0]);
 		if (json == false) return msg.reply('Sorry can\t download that');
-		if (json.length > 1) {
-			for (let i of json) {
-				sock.sendMessage(
-					msg.from,
-					{
-						image: {
-							url: i.url,
-						},
-					},
-					{
-						quoted: msg,
-					}
-				);
-			}
-			return;
+		for (let i of json) {
+			await sock.sendFile(msg.from, i.url, '', '', m);
 		}
-		return await sock.sendMessage(
-			msg.from,
-			{
-				video: { url: json.url },
-			},
-			{ quoted: msg }
-		);
 	},
 };

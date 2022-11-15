@@ -8,7 +8,7 @@ export default {
 	name: 'jojofilter',
 	alias: ['jojo'],
 	desc: 'jojo filter >//<',
-	category: 'Images manipulation',
+	category: 'Images',
 	async exec({ msg, sock, arg, prefix, command }) {
 		sock.jojo_filter = sock.jojo_filter ? sock.jojo_filter : {};
 		sock.jojo_error = sock.jojo_error ? sock.jojo_error : {};
@@ -25,8 +25,8 @@ export default {
 		if (!mime)
 			return msg.reply(`Reply/Send the image with caption ${prefix + command}`);
 		if (/image\/(jpe?g|png)/.test(mime)) {
-			let img = await file.download(),
-				upload = await uploadImage(img);
+			const img = await file.download();
+			const upload = await uploadImage(img);
 			try {
 				await sock.sendMessage(
 					msg.from,
@@ -41,7 +41,6 @@ export default {
 					}
 				);
 			} catch (e) {
-				console.log(e);
 				sock.jojo_error[msg.sender] = 0;
 				if (sock.jojo_error[msg.sender] > 3) {
 					return msg.reply('*ERROR!!*\nPlease report to group\n\n' + e);
@@ -51,7 +50,7 @@ export default {
 					"*ERROR!*\nMake sure the picture you've send have a face!"
 				);
 			} finally {
-				sock.jojo_filter[msg.sender] = false;
+				delete sock.jojo_filter[msg.sender];
 			}
 		} else if (/video/i.test(mime)) {
 			return msg.reply('Video not supported!');

@@ -11,6 +11,7 @@ import connectionHandler from '../handler/connection.js';
 
 import { MongoClient } from 'mongodb';
 import mongoDbAuth from './mongodb/mongo-auth.js';
+import { WAConnection } from './simple.js';
 
 const main = async () => {
 	try {
@@ -23,11 +24,13 @@ const main = async () => {
 	const { state, saveCreds } = await useMultiFileAuthState('./src/sessions');
 
 	const connect = async () => {
-		const sock = makeWASocket.default({
-			printQRInTerminal: true,
-			auth: state,
-			logger: Pino({ level: 'silent' }),
-		});
+		const sock = new WAConnection(
+			makeWASocket.default({
+				printQRInTerminal: true,
+				auth: state,
+				logger: Pino({ level: 'silent' }),
+			})
+		);
 
 		store.bind(sock.ev);
 
@@ -54,11 +57,13 @@ const db = async () => {
 	const { state, saveCreds } = await mongoDbAuth(store);
 
 	const connect = async () => {
-		const sock = makeWASocket.default({
-			printQRInTerminal: true,
-			auth: state,
-			logger: Pino({ level: 'silent' }),
-		});
+		const sock = new WAConnection(
+			makeWASocket.default({
+				printQRInTerminal: true,
+				auth: state,
+				logger: Pino({ level: 'silent' }),
+			})
+		);
 
 		sock.ev.on('creds.update', () => {
 			saveCreds();

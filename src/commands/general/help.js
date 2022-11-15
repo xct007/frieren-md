@@ -56,7 +56,30 @@ export default {
 					.join('\n')}\`\`\`\n╰──────────────\n`;
 			}
 			str += `send *${prefix}help* followed by a command name to get detail of command, \ne.g. *${prefix}help* stable`;
-			await sock.sendMessage(msg.from, { text: str }, { quoted: msg });
+			await sock.sendMessage(
+				msg.from,
+				{
+					text: str,
+					footer: botName,
+					templateButtons: [
+						{
+							index: 1,
+							urlButton: {
+								displayText: 'Source Code',
+								url: 'https://github.com/xct007/frieren-md',
+							},
+						},
+						{
+							index: 2,
+							urlButton: {
+								displayText: 'Main APIs',
+								url: 'http://api.itsrose',
+							},
+						},
+					],
+				},
+				{ quoted: msg }
+			);
 		}
 	},
 };
