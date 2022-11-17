@@ -16,6 +16,7 @@ export default {
 				image: {
 					url: json[Math.floor(json.length * Math.random())],
 				},
+				caption: 'Query _' + arg + '_',
 				footer: `_Pinterest_`,
 				buttons: [
 					{

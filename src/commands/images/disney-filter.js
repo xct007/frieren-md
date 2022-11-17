@@ -11,7 +11,7 @@ export default {
 	category: 'Images',
 	async exec({ msg, sock, arg, prefix, command }) {
 		sock.disney_filter = sock.disney_filter ? sock.disney_filter : {};
-		if (msg.sender in sock.jojo_filter)
+		if (msg.sender in sock.disney_filter)
 			return msg.reply(
 				'You have unfinish job before, please wait until finish, ok?'
 			);

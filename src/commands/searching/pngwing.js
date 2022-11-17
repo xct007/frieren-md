@@ -10,12 +10,29 @@ export default {
 		if (args.length < 1) return msg.reply(`Where the query?`);
 		const json = await search(arg);
 		if (json == false) return msg.reply('Error, something wrong');
-		await sock.sendMessage(
+		const URL = json[Math.floor(json.length * Math.random())];
+		try {
+			await sock.sendMessage(
+				msg.from,
+				{
+					document: {
+						url: URL,
+					},
+					fileName: `${arg + Math.floor(Math.random * 100)}.png`,
+					mimetype: 'image/png',
+				},
+				{
+					quoted: msg,
+				}
+			);
+		} catch {}
+		return await sock.sendMessage(
 			msg.from,
 			{
 				image: {
-					url: json[Math.floor(json.length * Math.random())],
+					url: URL,
 				},
+				caption: 'Query _' + arg + '_',
 				footer: `_PNG WING_`,
 				buttons: [
 					{
