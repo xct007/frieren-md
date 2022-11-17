@@ -3,7 +3,7 @@
 export const config = {
 	prefix: '!',
 	mode: 'self',
-	owner: ['6282186587597@s.whatsapp.net'],
+	owner: ['628xxx@s.whatsapp.net'],
 	premium: [],
 	botname: 'rose',
 	footer: '@roses_are_rosie',

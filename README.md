@@ -26,7 +26,25 @@ yarn install
 
 ## Run
 
-Simple in terminal
+First edit `config.js`
+
+```js
+{
+	prefix: '!', // prefix
+	mode: 'self', // mode 'self' or 'public'
+	owner: ['628xxx@s.whatsapp.net'], // owner number
+	premium: [], // not implement yet
+	botname: 'rose', // Bot name
+	footer: '@roses_are_rosie', // footer in menu
+	sticker: {
+		packname: '@roses_are_rosie', // sticker pack name
+		author: 'rose', // sticker author
+	},
+	...
+}
+```
+
+then in terminal
 
 ```bash
 npm run start
@@ -34,26 +52,43 @@ npm run start
 
 # Features
 
+- Anime
+
+  - [x] Quotes
+
 - Downloader
 
   - [ ] Instagram [BUG]
   - [x] Tiktok MP4/MP3
   - [x] Youtube MP4/MP3
+  - [x] SoundCloud MP3
 
 - Diffusion
 
   - [x] Stable
-  - [x] Waifu [BUG]
 
-- Weebs
+- Images
 
-  - [x] Kona Chan
-  - [ ] Pixiv [BUG]
-  - [x] Lewd
-  - [x] Nekopoi
+  - [x] Arcane filter
+  - [x] Art filter
+  - [x] Cartoon filter
+  - [x] Comic filter
+  - [x] Disney filter
+  - [x] Jojo filter
+  - [x] Unblur image (Remini)
+  - [x] Yasuo filter
 
 - Searching
+
+  - [x] Pinterest Image
+  - [x] PNG WING image
   - [x] Youtube Search
+
+- Weebs
+  - [x] Kona Chan
+  - [x] Pixiv [18+]
+  - [x] Lewd
+  - [x] Nekopoi
 
 ## BUG'S
 
@@ -63,13 +98,12 @@ npm run start
 
 - [ ] Fix current BUG
   - [ ] Instagram (sending many images/videos)
-  - [ ] Pixiv (Remove api request)
-  - [ ] Waifu (Diffusion)
+  - [x] Pixiv (Remove api request)
 - [ ] Add more features
-  - [ ] Image
-    - [ ] Enhancer
+  - [x] Image
+    - [x] Enhancer as unblur
     - [ ] Palette
-    - [ ] Others
+    - [x] Others
   - [ ] Up coming..
 
 ## Contributing

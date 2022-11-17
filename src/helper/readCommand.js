@@ -13,7 +13,7 @@ djs.prefix = '!';
 export default async function readCommand() {
 	let $rootDir = resolve(__dirname, '../commands');
 	let dir = readdirSync($rootDir);
-
+	const isLoad = [];
 	dir.forEach(async ($dir) => {
 		const commandFiles = readdirSync(resolve($rootDir, $dir)).filter((file) =>
 			file.endsWith('.js')
@@ -23,9 +23,10 @@ export default async function readCommand() {
 			color('Inside ', 'blue');
 			const command = await import(resolve($rootDir, $dir, file));
 			djs.commands.set(command.default.name, command.default);
+			isLoad.push(command.default.name);
 			console.log(
-				color('[SYS]', 'yellow'),
-				`${command.default.name} Command Loaded!`
+				color('[PLUGINS]', 'yellow'),
+				`${command.default.name} Loaded!`
 			);
 		}
 	});

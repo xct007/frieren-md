@@ -9,6 +9,7 @@ export default {
 	category: 'general',
 	async exec({ sock, msg, args, isOwner }) {
 		const botName = config.botname;
+		const Footer = config.footer;
 
 		if (args[0]) {
 			const data = [];
@@ -60,7 +61,7 @@ export default {
 				msg.from,
 				{
 					text: str,
-					footer: botName,
+					footer: Footer,
 					templateButtons: [
 						{
 							index: 1,
@@ -73,7 +74,7 @@ export default {
 							index: 2,
 							urlButton: {
 								displayText: 'Main APIs',
-								url: 'http://api.itsrose',
+								url: 'https://api.itsrose.my.id',
 							},
 						},
 					],

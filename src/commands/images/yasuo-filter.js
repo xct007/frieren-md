@@ -5,18 +5,17 @@
 import uploadImage from '../../lib/uploadImage.js';
 
 export default {
-	name: 'jojofilter',
-	alias: ['jojo'],
-	desc: 'jojo face filter >//<',
+	name: 'yasuofilter',
+	alias: ['yasuo'],
+	desc: 'Yasuo face filter >//<',
 	category: 'Images',
 	async exec({ msg, sock, arg, prefix, command }) {
-		sock.jojo_filter = sock.jojo_filter ? sock.jojo_filter : {};
-		sock.jojo_error = sock.jojo_error ? sock.jojo_error : {};
-		if (msg.sender in sock.jojo_filter)
+		sock.yasuo_filter = sock.yasuo_filter ? sock.yasuo_filter : {};
+		if (msg.sender in sock.yasuo_filter)
 			return msg.reply(
 				'You have unfinish job before, please wait until finish, ok?'
 			);
-		sock.jojo_filter[msg.sender] = true;
+		sock.yasuo_filter[msg.sender] = true;
 		let file = msg.quoted ? msg.quoted : msg,
 			mime =
 				(file.msg || file).message?.imageMessage?.mimetype ||
@@ -32,9 +31,9 @@ export default {
 					msg.from,
 					{
 						image: {
-							url: global.api('rose', '/image/jojo', { url: upload }),
+							url: global.api('rose', '/image/comics', { url: upload }),
 						},
-						caption: 'Jojo Filter >//<',
+						caption: 'Yasuo Filter >//<',
 					},
 					{
 						quoted: msg,
@@ -43,7 +42,7 @@ export default {
 			} catch (e) {
 				msg.reply("*ERROR!*\nMake sure the picture you've send have a face!");
 			} finally {
-				delete sock.jojo_filter[msg.sender];
+				delete sock.yasuo_filter[msg.sender];
 			}
 		} else if (/video/i.test(mime)) {
 			return msg.reply('Video not supported!');

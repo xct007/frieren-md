@@ -103,9 +103,7 @@ export default {
 				}
 				break;
 			default: {
-				return msg.reply(
-					'Use !nekopoi search <query>\nUse !nekopoi detail <id>'
-				);
+				return msg.reply('Example *!nekopoi* search <query>');
 			}
 		}
 	},

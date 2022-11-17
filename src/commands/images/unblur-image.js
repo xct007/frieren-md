@@ -5,18 +5,17 @@
 import uploadImage from '../../lib/uploadImage.js';
 
 export default {
-	name: 'jojofilter',
-	alias: ['jojo'],
-	desc: 'jojo face filter >//<',
+	name: 'yasuofilter',
+	alias: ['yasuo'],
+	desc: 'Yasuo face filter >//<',
 	category: 'Images',
 	async exec({ msg, sock, arg, prefix, command }) {
-		sock.jojo_filter = sock.jojo_filter ? sock.jojo_filter : {};
-		sock.jojo_error = sock.jojo_error ? sock.jojo_error : {};
-		if (msg.sender in sock.jojo_filter)
+		sock.unblur_image = sock.unblur_image ? sock.unblur_image : {};
+		if (msg.sender in sock.unblur_image)
 			return msg.reply(
 				'You have unfinish job before, please wait until finish, ok?'
 			);
-		sock.jojo_filter[msg.sender] = true;
+		sock.unblur_image[msg.sender] = true;
 		let file = msg.quoted ? msg.quoted : msg,
 			mime =
 				(file.msg || file).message?.imageMessage?.mimetype ||
@@ -32,18 +31,18 @@ export default {
 					msg.from,
 					{
 						image: {
-							url: global.api('rose', '/image/jojo', { url: upload }),
+							url: global.api('rose', '/image/unblur', { url: upload }),
 						},
-						caption: 'Jojo Filter >//<',
+						caption: 'Image unblured >//<',
 					},
 					{
 						quoted: msg,
 					}
 				);
 			} catch (e) {
-				msg.reply("*ERROR!*\nMake sure the picture you've send have a face!");
+				msg.reply('*ERROR!*\nMaybe the server is overload :/');
 			} finally {
-				delete sock.jojo_filter[msg.sender];
+				delete sock.unblur_image[msg.sender];
 			}
 		} else if (/video/i.test(mime)) {
 			return msg.reply('Video not supported!');
