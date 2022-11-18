@@ -13,6 +13,7 @@
 		"@adiwajshing/baileys": "^4.4.0",
 		"@adiwajshing/keyed-db": "^0.2.4",
 		"awesome-phonenumber": "^3.4.0",
+		"baileys-bottle": "^1.0.2",
 		"chalk": "4.1.2",
 		"cheerio": "^1.0.0-rc.12",
 		"file-type": "^18.0.0",
@@ -22,7 +23,8 @@
 		"mongodb": "^4.11.0",
 		"node-fetch": "^3.2.10",
 		"path": "^0.12.7",
-		"qrcode-terminal": "^0.12.0"
+		"qrcode-terminal": "^0.12.0",
+		"sqlite3": "^5.1.2"
 	},
 	"devDependencies": {
 		"wa-sticker-formatter": "^4.3.2"

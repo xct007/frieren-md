@@ -1,6 +1,6 @@
 node_modules
-trash
 rose.json
 src/sessions
-trash
-package-lock.json
+.env
+*.sql
+*lock.json

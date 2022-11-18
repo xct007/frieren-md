@@ -10,7 +10,7 @@ export const search = async (query, limit) =>
 				url: `https://www.pngwing.com/id/search?q=${query}`,
 				method: 'GET',
 				headers: {
-					'User-Agent': 'ok/http',
+					'User-Agent': 'com.ss.android.ugc.trill/2613 (Linux; U; Android 10; en_US; Pixel 4; Build/QQ3A.200805.001; Cronet/58.0.2991.0',
 				},
 			})
 			.then(async ({ data }) => {

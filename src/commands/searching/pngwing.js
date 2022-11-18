@@ -18,7 +18,7 @@ export default {
 					document: {
 						url: URL,
 					},
-					fileName: `${arg + Math.floor(Math.random * 100)}.png`,
+					fileName: `${arg} - ${Math.floor(Math.random * 100)}.png`,
 					mimetype: 'image/png',
 				},
 				{
