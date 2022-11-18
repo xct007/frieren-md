@@ -76,7 +76,6 @@ export async function facebook(url) {
 			data = await getJson(url);
 		} catch (e) {
 			data = { status: false, message: 'sorry request fail :(' };
-			console.log(e);
 		} finally {
 			end = Date.now();
 			resolve({

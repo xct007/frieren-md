@@ -5,17 +5,17 @@
 import uploadImage from '../../lib/uploadImage.js';
 
 export default {
-	name: 'cartoonfilter',
-	alias: ['cartoon'],
-	desc: 'cartoon face filter >//<',
+	name: 'palette',
+	alias: ['plte'],
+	desc: 'Palette AI Color >//<',
 	category: 'Images',
 	async exec({ msg, sock, arg, prefix, command }) {
-		sock.cartoon_filter = sock.cartoon_filter ? sock.cartoon_filter : {};
-		if (msg.sender in sock.cartoon_filter)
+		sock.palette = sock.palette ? sock.palette : {};
+		if (msg.sender in sock.palette)
 			return msg.reply(
 				'You have unfinish job before, please wait until finish, ok?'
 			);
-		sock.cartoon_filter[msg.sender] = true;
+		sock.palette[msg.sender] = true;
 		let file = msg.quoted ? msg.quoted : msg,
 			mime =
 				(file.msg || file).message?.imageMessage?.mimetype ||
@@ -32,18 +32,18 @@ export default {
 					msg.from,
 					{
 						image: {
-							url: global.api('rose', '/image/cartoon', { url: upload }),
+							url: global.api('rose', '/image/palette', { url: upload }),
 						},
-						caption: 'Cartoon Filter >//<',
+						caption: 'Palette Color AI >//<',
 					},
 					{
 						quoted: msg,
 					}
 				);
 			} catch (e) {
-				msg.reply("*ERROR!*\nMake sure the picture you've send have a face!");
+				msg.reply("*ERROR!*\nMake sure the picture you've send is a human!");
 			} finally {
-				delete sock.cartoon_filter[msg.sender];
+				delete sock.palette[msg.sender];
 			}
 		} else if (/video/i.test(mime)) {
 			return msg.reply('Video not supported!');

@@ -23,6 +23,7 @@ export default {
 				'';
 		if (!mime)
 			return msg.reply(`Reply/Send the image with caption ${prefix + command}`);
+		m.reply('Please Wait...');
 		if (/image\/(jpe?g|png)/.test(mime)) {
 			const img = await file.download();
 			const upload = await uploadImage(img);

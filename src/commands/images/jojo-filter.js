@@ -11,7 +11,6 @@ export default {
 	category: 'Images',
 	async exec({ msg, sock, arg, prefix, command }) {
 		sock.jojo_filter = sock.jojo_filter ? sock.jojo_filter : {};
-		sock.jojo_error = sock.jojo_error ? sock.jojo_error : {};
 		if (msg.sender in sock.jojo_filter)
 			return msg.reply(
 				'You have unfinish job before, please wait until finish, ok?'
@@ -24,6 +23,7 @@ export default {
 				'';
 		if (!mime)
 			return msg.reply(`Reply/Send the image with caption ${prefix + command}`);
+		m.reply('Please Wait...');
 		if (/image\/(jpe?g|png)/.test(mime)) {
 			const img = await file.download();
 			const upload = await uploadImage(img);

@@ -58,6 +58,7 @@ npm run start
 
 - Downloader
 
+  - [x] Facebook MP4
   - [ ] Instagram [BUG]
   - [x] Tiktok MP4/MP3
   - [x] Youtube MP4/MP3
@@ -75,6 +76,7 @@ npm run start
   - [x] Comic filter
   - [x] Disney filter
   - [x] Jojo filter
+  - [x] Palette
   - [x] Unblur image (Remini)
   - [x] Yasuo filter
 
@@ -97,12 +99,14 @@ npm run start
 ## Roadmap
 
 - [ ] Fix current BUG
+  - [ ] Template Buttons Not Working
   - [ ] Instagram (sending many images/videos)
   - [x] Pixiv (Remove api request)
-- [ ] Add more features
+    - [ ] Disable/Enable 18+
+- [x] Add more features
   - [x] Image
     - [x] Enhancer as unblur
-    - [ ] Palette
+    - [x] Palette
     - [x] Others
   - [ ] Up coming..
 

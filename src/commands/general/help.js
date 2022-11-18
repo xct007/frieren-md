@@ -33,6 +33,8 @@ export default {
 			const { pushName, sender } = msg;
 			const { prefix, commands } = djs;
 			const cmds = commands.keys();
+			const more = String.fromCharCode(8206);
+			const readMore = more.repeat(4001);
 			let category = [];
 
 			for (let cmd of cmds) {
@@ -49,7 +51,7 @@ export default {
 			}
 			let str = `Hello, ${
 				pushName === undefined ? sender.split('@')[0] : pushName
-			}\n*Here My Command List*\n\n`;
+			}\n_Here My Command List_\n\n${readMore}\n`;
 			const keys = Object.keys(category);
 			for (const key of keys) {
 				str += `╭──────❨ *${key.toUpperCase()}* ❩\n\`\`\`${category[key]
@@ -57,7 +59,9 @@ export default {
 					.join('\n')}\`\`\`\n╰──────────────\n`;
 			}
 			str += `send *${prefix}help* followed by a command name to get detail of command, \ne.g. *${prefix}help* stable`;
-			await sock.sendMessage(
+			/*
+			 * TODO
+			return await sock.sendMessage(
 				msg.from,
 				{
 					text: str,
@@ -80,6 +84,16 @@ export default {
 					],
 				},
 				{ quoted: msg }
+			);
+			*/
+			return await sock.sendMessage(
+				msg.from,
+				{
+					text: str,
+				},
+				{
+					quoted: msg,
+				}
 			);
 		}
 	},

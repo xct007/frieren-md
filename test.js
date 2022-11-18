@@ -2,6 +2,9 @@
 
 import * as fs from 'fs';
 
+/**
+ * IN BAILEYS 4.3.0
+ */
 try {
 	fs.readFile(
 		'./node_modules/@adiwajshing/baileys/lib/Utils/messages.js',
