@@ -3,7 +3,7 @@
 import { main, db } from './helper/connect.js';
 import readCommand from './helper/readCommand.js';
 
-import config from '../config';
+import { config } from '../config.js';
 
 global.api = (name, path = '/', query = {}) =>
 	(name in config.API ? config.API[name] : name) +
@@ -11,4 +11,4 @@ global.api = (name, path = '/', query = {}) =>
 	(query ? '?' + new URLSearchParams(Object.entries({ ...query })) : '');
 
 readCommand();
-process.env.URI ? db() : main();
+process.env.MONGO_URI ? db() : main();

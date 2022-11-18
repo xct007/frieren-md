@@ -13,8 +13,8 @@ export default {
 		return await sock.sendMessage(
 			msg.from,
 			{
-				text: `\n_${json.quote}_\n\n\nAnime : ${json.anime}`,
-				footer: `_${json.character}_`,
+				text: `\n_${json.quote}_\n`,
+				footer: `_${json.character}_ - _${json.anime}_`,
 				buttons: [
 					{
 						buttonId: '!animequotes',
